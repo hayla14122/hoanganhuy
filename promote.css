@@ -1,0 +1,354 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  background-color: #f0f4f8;
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* Hero section */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4);
+  z-index: -1;
+  animation: videoFadeIn 3s ease-out;
+}
+
+.hero-text {
+  color: #fff;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 2rem;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.hero-text h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Content Section */
+.content-section {
+  padding: 4rem 2rem;
+  background: #fff;
+  z-index: 10;
+  position: relative;
+}
+
+.content-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.well-being-section {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  background: #fdfdfd;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s ease;
+}
+
+.well-being-section:hover {
+  transform: translateY(-10px);
+}
+
+.well-being-section:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.rounded-image {
+  flex: 1 1 400px;
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease;
+}
+
+.rounded-image:hover {
+  transform: scale(1.02);
+}
+
+.text-content {
+  flex: 1 1 500px;
+}
+
+.text-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #0077ff;
+  position: relative;
+  display: inline-block;
+}
+
+.text-content h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 50%;
+  height: 4px;
+  background-color: #00b4ff;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.well-being-section:hover h2::after {
+  width: 100%;
+}
+
+.text-content p {
+  font-size: 1.1rem;
+  color: #555;
+  text-align: justify;
+  margin-bottom: 1rem;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: #222;
+  color: #eee;
+  font-size: 0.9rem;
+}
+
+/* Animations */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in-up-delay {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease-out 0.5s, transform 1s ease-out 0.5s;
+}
+
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+@keyframes videoFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- CHATBOT CSS --- */
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 360px;
+  max-height: 520px;
+  background: #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border-radius: 18px;
+  overflow: hidden;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+#chat-header {
+  background: linear-gradient(135deg, #0077ff, #00b4ff);
+  color: #fff;
+  padding: 12px 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#chatBox {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Bong bóng chat */
+.msg {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  line-height: 1.4;
+  animation: fadeIn 0.3s ease;
+}
+
+.msg.user {
+  align-self: flex-end;
+  background: #0077ff;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.msg.bot {
+  align-self: flex-start;
+  background: #eaeaea;
+  color: #333;
+  border-bottom-left-radius: 4px;
+}
+
+.msg.thinking {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Input */
+.chat-input-container {
+  display: flex;
+  border-top: 1px solid #ddd;
+  background: #fff;
+}
+
+#userInput {
+  border: none;
+  padding: 0.8rem;
+  font-size: 1rem;
+  outline: none;
+  flex: 1;
+}
+
+#sendBtn {
+  border: none;
+  background: #0077ff;
+  color: #fff;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+#sendBtn:hover {
+  background: #005fcc;
+}
+
+/* Nút bật */
+#chat-toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 14px 20px;
+  background: #0077ff;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, background 0.3s;
+}
+
+#chat-toggle-btn:hover {
+  transform: translateY(-3px);
+  background: #005fcc;
+}
+
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .hero-text h1 {
+    font-size: 3rem;
+  }
+  .well-being-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem;
+  }
+  .well-being-section:nth-child(even) {
+    flex-direction: column;
+  }
+  .well-being-section h2::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .text-content {
+    order: 2;
+  }
+  .rounded-image {
+    order: 1;
+  }
+}
+.rounded-image {
+  flex: 1 1 400px;
+  width: 100%;
+  height: 300px; /* Thêm dòng này để ép chiều cao giống nhau */
+  border-radius: 12px;
+  object-fit: cover; /* Đảm bảo hình ảnh lấp đầy khung mà không bị méo */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease;
+}
+
+.rounded-image:hover {
+  transform: scale(1.02);
+}

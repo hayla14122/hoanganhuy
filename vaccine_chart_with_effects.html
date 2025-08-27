@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Covid Vaccine Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.0"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #f0f2f5, #d9e4f5);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: background 0.6s ease, color 0.4s ease;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      animation: glowText 2s ease-in-out infinite alternate;
+      color: #0a0a0a;
+    }
+
+    @keyframes glowText {
+      from { text-shadow: 0 0 5px rgba(0,255,255,0.3); }
+      to { text-shadow: 0 0 20px rgba(0,255,255,0.8); }
+    }
+
+    .controls {
+      margin: 10px 0 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #0cb5f4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #0a8ccf;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      50% { transform: translateX(3px); }
+      75% { transform: translateX(-2px); }
+      100% { transform: translateX(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #loading {
+      font-weight: bold;
+      margin: 20px;
+      color: #0cb5f4;
+      font-size: 1.2em;
+      display: none;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
+    }
+
+    #chartContainer {
+      width: 95%;
+      max-width: 1100px;
+      animation: fadeInUp 1.5s ease;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .fade-in-intro {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInIntro 1.2s forwards;
+}
+
+@keyframes fadeInIntro {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in-intro img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fade-in-intro img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+  </style>
+</head>
+<body>
+  
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px; margin-bottom: 20px;" class="fade-in-intro">
+  <img src="https://bvtamtridongthap.com.vn/vnt_upload/news/05_2021/covid19-biomedic.png " 
+       alt="COVID-19 Virus" 
+       style="width: 180px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+  <p style="flex: 1; font-size: 16px; line-height: 1.6; color: #333;">
+    COVID-19 là bệnh truyền nhiễm do virus SARS-CoV-2 gây ra, xuất hiện lần đầu vào cuối năm 2019. 
+    Đại dịch đã ảnh hưởng nghiêm trọng tới sức khỏe cộng đồng và kinh tế toàn cầu. 
+    Việc tiêm chủng vaccine được coi là biện pháp hiệu quả nhất giúp giảm nguy cơ lây nhiễm, 
+    giảm tỷ lệ bệnh nặng và tử vong. Biểu đồ dưới đây thể hiện số lượng liều vaccine đã được triển khai 
+    tại các quốc gia và khu vực trên thế giới.
+  </p>
+</div>
+<!-- Thêm nút dưới phần container chính, ngay trước chart -->
+<div style="width: 100%; text-align: center; margin: 20px 0;">
+  <button onclick="window.location.href='main.html'">Back to Home</button>
+</div>
+  <div class="container">
+    <h1>Covid-19 Vaccine Data</h1>
+
+    <div class="controls">
+      <label for="continentFilter">Filter by Continent:</label>
+      <select id="continentFilter">
+        <option value="all">All</option>
+        <option value="Asia">Asia</option>
+        <option value="Europe">Europe</option>
+        <option value="Africa">Africa</option>
+        <option value="North America">North America</option>
+        <option value="South America">South America</option>
+        <option value="Oceania">Oceania</option>
+      </select>
+
+      <label>
+        <input type="checkbox" id="percentageToggle" />
+        Show as %
+      </label>
+
+      <input type="text" id="searchInput" placeholder="Search country..." />
+
+      <button id="refreshBtn">Refresh</button>
+      <button id="exportImage">Export Image</button>
+      <button id="exportCSV">Export CSV</button>
+    </div>
+
+    <div id="loading" class="loading">Loading data...</div>
+
+    <div id="chartContainer">
+      <canvas id="vaccineChart" width="800" height="400"></canvas>
+    </div>
+  </div>
+  
+  
+
+  <script>
+    let countriesMeta = {};
+  
+    async function fetchCountryMeta() {
+      try {
+        const res = await fetch('https://disease.sh/v3/covid-19/countries');
+        const data = await res.json();
+        countriesMeta = {};
+        for (const country of data) {
+          countriesMeta[country.country] = {
+            population: country.population,
+            continent: country.continent,
+            flag: country.countryInfo?.flag || ''
+          };
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById('loading').textContent = 'Failed to load data.';
+      }
+    }
+  
+    function debounce(func, delay = 400) {
+      let timeout;
+      return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+      };
+    }
+  
+    async function fetchVaccineData() {
+      document.getElementById('loading').style.display = 'block';
+  
+      const continent = document.getElementById('continentFilter').value;
+      const asPercentage = document.getElementById('percentageToggle').checked;
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  
+      try {
+        const res = await fetch('https://disease.sh/v3/covid-19/vaccine/coverage/countries?lastdays=1');
+        const data = await res.json();
+  
+        document.getElementById('loading').style.display = 'none';
+  
+        let filtered = data.map(d => {
+          const country = d.country;
+          const total = Object.values(d.timeline)[0];
+          const meta = countriesMeta[country] || {};
+          const population = meta.population || 0;
+          const continentName = meta.continent || 'Unknown';
+          return {
+            country,
+            total,
+            population,
+            continent: continentName,
+            percentage: population ? (total / population * 100).toFixed(2) : null
+          };
+        })
+        .filter(d => d.total > 100000000 && (continent === 'all' || d.continent === continent))
+        .filter(d => d.country.toLowerCase().includes(searchTerm))
+        .sort((a, b) => b.total - a.total);
+  
+        const ctx = document.getElementById('vaccineChart').getContext('2d');
+        if (window.chart) window.chart.destroy();
+  
+        window.chart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: filtered.map(e => e.country),
+            datasets: [{
+              label: asPercentage ? '% of Population Vaccinated' : 'Vaccine Doses Administered',
+              data: filtered.map(e => asPercentage ? +e.percentage : e.total),
+              backgroundColor: 'rgba(75,192,192,0.5)',
+              borderColor: 'rgba(0, 200, 255, 1)',
+              borderWidth: 1,
+              hoverBackgroundColor: 'rgba(255, 99, 132, 0.8)',
+              hoverBorderColor: 'rgba(0, 255, 200, 1)',
+              hoverBorderWidth: 3
+            }]
+          },
+          options: {
+            responsive: true,
+            animation: {
+              duration: 1500,
+              easing: 'easeOutBounce'
+            },
+            plugins: {
+              zoom: {
+                pan: { enabled: true, mode: 'x' },
+                zoom: {
+                  wheel: { enabled: true },
+                  pinch: { enabled: true },
+                  mode: 'x'
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: ctx => {
+                    const country = ctx.label;
+                    const total = ctx.raw;
+                    const population = countriesMeta[country]?.population || 0;
+                    const percent = population ? ((total / population) * 100).toFixed(2) : 'N/A';
+                    return asPercentage ?
+                      `${ctx.dataset.label}: ${percent}% (Pop: ${population.toLocaleString()})` :
+                      `${ctx.dataset.label}: ${total.toLocaleString()} doses\nPopulation: ${population.toLocaleString()}\nCoverage: ${percent}%`;
+                  }
+                }
+              }
+            },
+            hover: {
+              mode: 'nearest',
+              onHover: function (event, chartElement) {
+                event.native.target.style.cursor = chartElement.length ? 'pointer' : 'default';
+              }
+            },
+            onClick: function (evt, activeEls) {
+              if (activeEls.length > 0) {
+                const idx = activeEls[0].index;
+                const country = window.chart.data.labels[idx];
+                const meta = countriesMeta[country];
+                if (!meta) return;
+  
+                const existing = document.getElementById('countryFlagInfo');
+                if (existing) existing.remove();
+  
+                const info = document.createElement('div');
+                info.id = 'countryFlagInfo';
+                info.style.position = 'fixed';
+                info.style.top = '80px';
+                info.style.right = '30px';
+                info.style.padding = '14px';
+                info.style.background = 'white';
+                info.style.border = '1px solid #ccc';
+                info.style.borderRadius = '10px';
+                info.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+                info.style.zIndex = 9999;
+                info.style.minWidth = '220px';
+                info.innerHTML = `
+                  <div style="text-align:center;">
+                    <img src="${meta.flag}" alt="flag" style="width:70px;height:auto;margin-bottom:10px;border-radius:4px;">
+                    <h3 style="margin: 0 0 5px;">${country}</h3>
+                    <p style="margin:0;font-size:14px;"><strong>Continent:</strong> ${meta.continent}</p>
+                    <p style="margin:0;font-size:14px;"><strong>Population:</strong> ${meta.population.toLocaleString()}</p>
+                  </div>
+                `;
+                document.body.appendChild(info);
+                setTimeout(() => info.remove(), 6000);
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: val => asPercentage ? val + '%' : val.toLocaleString()
+                }
+              }
+            }
+          }
+        });
+      } catch (err) {
+        console.error(err);
+        document.getElementById('loading').textContent = 'Failed to load data.';
+      }
+    }
+  
+    document.getElementById('refreshBtn').addEventListener('click', fetchVaccineData);
+    document.getElementById('continentFilter').addEventListener('change', fetchVaccineData);
+    document.getElementById('percentageToggle').addEventListener('change', fetchVaccineData);
+    document.getElementById('searchInput').addEventListener('input', debounce(fetchVaccineData, 400));
+  
+    document.getElementById('exportImage').addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'vaccine_chart.png';
+      link.href = document.getElementById('vaccineChart').toDataURL();
+      link.click();
+    });
+  
+    document.getElementById('exportCSV').addEventListener('click', () => {
+      const asPercentage = document.getElementById('percentageToggle').checked;
+      const rows = [['Country', 'Total Doses', '% of Population']];
+      window.chart.data.labels.forEach((label, i) => {
+        const value = window.chart.data.datasets[0].data[i];
+        const population = countriesMeta[label]?.population || 0;
+        const total = asPercentage ? (value * population / 100) : value;
+        const percent = population ? ((total / population) * 100).toFixed(2) : 'N/A';
+        rows.push([label, Math.round(total), percent]);
+      });
+      const csv = rows.map(r => r.join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'vaccine_data.csv';
+      link.click();
+    });
+  
+    fetchCountryMeta().then(fetchVaccineData);
+  </script>
+</body>
+</html>

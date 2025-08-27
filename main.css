@@ -1,0 +1,710 @@
+/* Base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: sans-serif; color: #045a8d; background: #f5f9fc; }
+.container { width: 90%; max-width: 1100px; margin: auto; }
+
+/* Header */
+/* Header với gradient xanh động */
+header {
+  background: linear-gradient(270deg, #00c6ff, #0072ff, #00c6ff);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+  padding: 20px 0;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* Xóa gạch chân trong mục Our Services */
+.missions-list a,
+.missions-list a:link,
+.missions-list a:visited,
+.missions-list a:hover,
+.missions-list a:active {
+  text-decoration: none;
+  color: inherit;   /* hoặc chọn màu bạn muốn */
+}
+
+header .logo { color: #fff; font-size: 1.6rem; }
+nav ul { list-style: none; display: flex; gap: 20px;}
+nav a { color: #fff; text-decoration: none; font-weight: 500; position: relative; }
+nav a::after { content: ""; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #fff; transition: width 0.3s; }
+nav a:hover::after { width: 100%; }
+
+/* Hero */
+.hero { background: BFE7F5; color: #fff; padding: 100px 0; text-align: center; position: relative; overflow: hidden; }
+.gradient-text {
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #84c5f4, #0371a6, #045a8d);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: moveGradient 5s linear infinite;
+}
+
+.hero .btn {
+  display: inline-block; margin-top: 20px;
+  padding: 12px 30px;
+  background: #0288a6; color: #fff;
+  border-radius: 5px; text-decoration: none;
+  position: relative; overflow: hidden;
+}
+.hero .btn::before {
+  content: ""; position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%; background: rgba(255,255,255,0.3);
+  transform: skewX(-20deg); transition: left 0.6s;
+}
+.hero .btn:hover::before { left: 200%; }
+
+/* Sections */
+.section { padding: 80px 0; opacity: 0; transform: translateY(50px); transition: all 0.6s ease-out;}
+.section.visible { opacity: 1; transform: translateY(0);}
+.report-card, .missions-list li {
+  background: #e1f5fe; color: #045a8d; padding: 20px;
+  margin: 15px 0; border-radius: 8px; transition: transform 0.3s;
+}
+.report-card:hover, .missions-list li:hover { transform: translateX(10px); }
+
+/* Footer */
+footer { background: #0371a6; color: #fff; padding: 20px 0; text-align: center; font-size: 0.9rem; }
+
+/* Keyframes */
+@keyframes moveGradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+html {
+  scroll-behavior: smooth;
+}
+#backToTop {
+  position: fixed;
+  bottom: 30px; right: 30px;
+  background: #0288a6;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 20px;
+  display: none;
+  transition: opacity 0.3s;
+}
+#backToTop.show {
+  display: block;
+}
+.report-card, .missions-list li {
+  background: #e1f5fe;
+  color: #045a8d;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.report-card:hover, .missions-list li:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.bubbles {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+}
+
+.bubbles li {
+  position: absolute;
+  bottom: -120px;
+  width: 40px; height: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  animation: rise 20s linear infinite;
+}
+
+.bubbles li:nth-child(1) { left: 10%; width: 20px; height: 20px; animation-duration: 12s; }
+.bubbles li:nth-child(2) { left: 20%; animation-duration: 17s; }
+.bubbles li:nth-child(3) { left: 30%; width: 25px; height: 25px; animation-duration: 15s; }
+.bubbles li:nth-child(4) { left: 40%; width: 10px; height: 10px; animation-duration: 10s; }
+.bubbles li:nth-child(5) { left: 50%; width: 60px; height: 60px; animation-duration: 25s; }
+.bubbles li:nth-child(6) { left: 60%; width: 15px; height: 15px; animation-duration: 13s; }
+.bubbles li:nth-child(7) { left: 70%; width: 35px; height: 35px; animation-duration: 20s; }
+.bubbles li:nth-child(8) { left: 80%; width: 25px; height: 25px; animation-duration: 18s; }
+.bubbles li:nth-child(9) { left: 90%; width: 20px; height: 20px; animation-duration: 16s; }
+.bubbles li:nth-child(10){ left: 95%; width: 30px; height: 30px; animation-duration: 22s; }
+
+@keyframes rise {
+  0% { bottom: -100px; transform: translateX(0) scale(1); }
+  50% { transform: translateX(30px) scale(1.2); }
+  100% { bottom: 100%; transform: translateX(-30px) scale(0.8); }
+}
+@keyframes moveGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+#scrollProgress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 4px;
+  width: 0;
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  z-index: 9999;
+  transition: width 0.25s ease-out;
+}
+header.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #026;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+.hero .btn {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(2,136,166,0.5); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(2,136,166,0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(2,136,166,0); }
+}
+.hero .btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero .btn::after {
+  content: "";
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: linear-gradient(45deg, #00f0ff, #0288a6, #00f0ff);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 6px;
+}
+
+.hero .btn:hover::after {
+  opacity: 1;
+  filter: blur(4px);
+}
+.report-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+  transition: transform 0.3s;
+}
+.report-card:hover {
+  transform: scale(1.02);
+}
+h3 {
+  position: relative;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.hero {
+  background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  position: relative;
+  padding: 150px 0;
+  overflow: hidden;
+}
+.section {
+  opacity: 0;
+  transform: translateY(30px) rotateX(15deg) scale(0.95);
+  transition: all 0.8s ease-out;
+}
+.section.visible {
+  opacity: 1;
+  transform: translateY(0) rotateX(0) scale(1);
+}
+.flip-card {
+  perspective: 1000px;
+}
+.flip-card-inner {
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front, .flip-card-back {
+  backface-visibility: hidden;
+  position: absolute;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hero .btn:hover {
+  box-shadow: 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(2,136,166,0.8);
+}
+.sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  animation: sparkle 0.5s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes sparkle {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+.report-card {
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  z-index: 0;
+}
+.report-card::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px;
+  right: -2px; bottom: -2px;
+  background: linear-gradient(45deg, #00f0ff, #0288a6, #00f0ff);
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.report-card:hover::before {
+  opacity: 1;
+}
+header .logo {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  animation: shine 4s linear infinite;
+  background: linear-gradient(90deg, #fff, #aeeaff, #fff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes shine {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #00eaff;
+  border-radius: 50%;
+  animation: pop 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes pop {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.5);
+  }
+}
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.news-card {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.news-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.news-content {
+  padding: 15px;
+}
+
+.news-content .date {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.news-content h4 {
+  font-size: 1rem;
+  color: #045a8d;
+  line-height: 1.4;
+}
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.news-card {
+  position: relative;
+}
+
+.news-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(120deg, rgba(255,255,255,0.1), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.news-card:hover::after {
+  opacity: 1;
+}
+
+.news-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+.news-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.news-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.news-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Shine effect */
+.news-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  transform: skewX(-25deg);
+}
+
+.news-card:hover::before {
+  animation: shineMove 0.8s forwards;
+}
+
+@keyframes shineMove {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
+}
+.news-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.news-card .ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  background: rgba(255, 255, 255, 0.4);
+  animation: rippleAnim 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes rippleAnim {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+/* ---- BẮT ĐẦU CSS CHO FOOTER ---- */
+.site-footer {
+    background-color: #03426c;
+    color: #f0f0f0;
+    padding: 60px 0;
+    font-family: Arial, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.site-footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    padding-right: 20px;
+}
+
+.footer-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #e0f2f1;
+    border-bottom: 2px solid #5d98e9;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.footer-section p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+
+
+.org-name {
+    font-size: 28px;
+    font-weight: bold;
+    color: #e0f2f1;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.contact-info span {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.contact-info i {
+    margin-right: 10px;
+    color: #5d98e9;
+}
+
+.footer-section.links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section.links a {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.footer-section.links a:hover {
+    color: #5d98e9;
+    transform: translateX(5px);
+}
+
+.social-links a {
+    display: inline-block;
+    color: #f0f0f0;
+    font-size: 24px;
+    margin-right: 15px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: scale(1.2) rotate(10deg);
+    color: #5d98e9;
+}
+
+.copyright, .all-rights {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 20px;
+    opacity: 0.7;
+}
+
+/* Hiệu ứng bong bóng (bubbles) */
+.bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    list-style: none;
+    opacity: 0.1;
+}
+
+.bubbles li {
+    position: absolute;
+    bottom: -150px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.15);
+    animation: move-bubbles 15s linear infinite;
+    border-radius: 50%;
+}
+
+.bubbles li:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+    width: 25px;
+    height: 25px;
+}
+
+.bubbles li:nth-child(2) {
+    left: 20%;
+    animation-delay: 2s;
+    animation-duration: 10s;
+}
+
+.bubbles li:nth-child(3) {
+    left: 35%;
+    animation-delay: 4s;
+    width: 30px;
+    height: 30px;
+}
+
+.bubbles li:nth-child(4) {
+    left: 50%;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+
+.bubbles li:nth-child(5) {
+    left: 65%;
+    animation-delay: 3s;
+    width: 20px;
+    height: 20px;
+}
+
+.bubbles li:nth-child(6) {
+    left: 75%;
+    animation-delay: 5s;
+}
+
+.bubbles li:nth-child(7) {
+    left: 85%;
+    animation-delay: 1s;
+    width: 35px;
+    height: 35px;
+}
+
+.bubbles li:nth-child(8) {
+    left: 90%;
+    animation-delay: 6s;
+    animation-duration: 12s;
+}
+
+.bubbles li:nth-child(9) {
+    left: 5%;
+    animation-delay: 7s;
+    width: 50px;
+    height: 50px;
+}
+
+.bubbles li:nth-child(10) {
+    left: 95%;
+    animation-delay: 8s;
+}
+
+@keyframes move-bubbles {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
+/* ---- KẾT THÚC CSS CHO FOOTER ---- */
+.typing-text {
+  min-height: 50px; /* Đặt chiều cao tối thiểu */
+  /* Giá trị 50px chỉ là ví dụ, bạn có thể điều chỉnh để phù hợp với font-size và độ dài của dòng dài nhất */
+}
+
+/* Hoặc nếu bạn muốn hiệu ứng mượt hơn, dùng max-width */
+.hero-content h2 {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+

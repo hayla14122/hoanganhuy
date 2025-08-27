@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🍽️ Nutrition Analyzer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --main-blue: #3a86ff;
+  --main-light: #83c5be;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --text-color: #2c3e50;
+  --bg-gradient-light: linear-gradient(135deg, #f0f4f8, #eef1f5);
+}
+body {
+  background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+  
+}
+body {
+  background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+  color: var(--text-color);
+  transition: all 0.5s ease-in-out;
+}
+
+/* Titles */
+h1,
+h2 {
+  color: var(--main-blue);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  margin-top: 40px;
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  height: 3px;
+  width: 50px;
+  background: var(--main-light);
+  border-radius: 2px;
+}
+
+/* Inputs & buttons */
+input,
+select {
+  padding: 14px 18px;
+  font-size: 16px;
+  margin: 10px 0;
+  border-radius: 12px;
+  border: 1px solid #dfe6e9;
+  width: 250px;
+  outline: none;
+  background-color: #f7f9fb;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+input:focus,
+select:focus {
+  border-color: var(--main-blue);
+  box-shadow: 0 0 10px rgba(58, 134, 255, 0.3);
+}
+
+button {
+  background: var(--main-blue);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  width: 260px;
+  padding: 15px 0;
+  border: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(58, 134, 255, 0.2);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(58, 134, 255, 0.3);
+  background: linear-gradient(135deg, #3a86ff, #5cb0ff);
+}
+
+/* Cards */
+.container-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 30px;
+  margin-top: 30px;
+  box-shadow: 0 15px 40px var(--shadow-color);
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  transition: all 0.5s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.8s forwards;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.container-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px var(--shadow-color);
+}
+
+/* Images */
+img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.02);
+}
+
+/* Autocomplete */
+.autocomplete-suggestions {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #dfe6e9;
+  position: absolute;
+  width: 250px;
+  margin-top: -10px;
+  text-align: left;
+  z-index: 10;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.autocomplete-suggestions.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.autocomplete-suggestions div {
+  padding: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s;
+  border-bottom: 1px solid #f0f4f8;
+}
+
+.autocomplete-suggestions div:last-child {
+  border-bottom: none;
+}
+
+.autocomplete-suggestions div:hover {
+  background: var(--main-light);
+  color: white;
+}
+
+/* Diet suggestion */
+#dietSuggestion {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(240, 248, 255, 0.8);
+  border-radius: 18px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  white-space: pre-line;
+  line-height: 1.6;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Header với nút Back -->
+<div style="position: fixed; top: 20px; left: 20px; display: flex; align-items: center; gap: 15px; z-index: 100;">
+  <button onclick="goHome()" style="padding:10px 15px; border:none; border-radius:50px; background:#3a86ff; color:#fff; cursor:pointer; font-weight:600; box-shadow:0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s;">
+    🏠 Back to Home
+  </button>
+</div>
+
+<h1>🍽️ Nutrition Analyzer</h1>
+
+<!-- Input món ăn -->
+<div style="position: relative;">
+  <input type="text" id="foodInput" placeholder="Nhập món ăn..." oninput="autoComplete()">
+  <div id="suggestions" class="autocomplete-suggestions"></div>
+</div>
+<button onclick="analyzeFood()">Phân tích món ăn</button>
+
+<!-- Result card -->
+<div class="container-card" id="result" style="display:none;">
+  <img id="foodImage" src="" alt="Food image">
+  <h3 id="foodName"></h3>
+  <p>🔥 Calo: <span id="calories">0</span> kcal</p>
+  <p>🍚 Carbs: <span id="carbs">0</span> g</p>
+  <p>🥩 Protein: <span id="protein">0</span> g</p>
+</div>
+
+<!-- Lịch sử -->
+<div class="container-card" id="history">
+  <h3 class="section-title">📅 Lịch sử hôm nay</h3>
+  <ul id="historyList"></ul>
+</div>
+
+<!-- Gợi ý chế độ ăn -->
+<h2 class="section-title">📊 Gợi ý chế độ ăn</h2>
+<input type="number" id="age" placeholder="Tuổi">
+<select id="gender">
+  <option value="male">Nam</option>
+  <option value="female">Nữ</option>
+</select>
+<input type="number" id="height" placeholder="Chiều cao (cm)">
+<input type="number" id="weight" placeholder="Cân nặng (kg)">
+<button onclick="suggestDiet()">Tư vấn chế độ</button>
+<div id="dietSuggestion"></div>
+
+<script>
+const appId="b1486e99"; 
+const appKey="e1f5cd6f6bf6e64fcb4aedd38f596e2b";
+
+// Nút Back
+function goHome() {
+  window.location.href = 'main.html';
+}
+
+// Biểu tượng món ăn
+function getFoodIcon(name){
+  name=name.toLowerCase();
+  if(name.includes("apple")||name.includes("fruit")) return "🍎";
+  if(name.includes("milk")||name.includes("yogurt")) return "🥛";
+  if(name.includes("meat")||name.includes("beef")||name.includes("chicken")) return "🥩";
+  if(name.includes("salad")||name.includes("vegetable")) return "🥗";
+  if(name.includes("bread")||name.includes("rice")) return "🍚";
+  return "🍴";
+}
+
+// Autocomplete
+function autoComplete(){
+  const query=document.getElementById("foodInput").value;
+  const suggestionsDiv=document.getElementById("suggestions");
+  if(!query){ suggestionsDiv.innerHTML=""; suggestionsDiv.classList.remove("show"); return; }
+  fetch("https://trackapi.nutritionix.com/v2/search/instant?query="+query,{
+    headers:{"x-app-id":appId,"x-app-key":appKey}
+  }).then(res=>res.json()).then(data=>{
+    const suggestions=data.common.map(item=>`<div onclick="selectSuggestion('${item.food_name}')">${getFoodIcon(item.food_name)} ${item.food_name}</div>`).join("");
+    suggestionsDiv.innerHTML=suggestions;
+    suggestionsDiv.classList.add("show");
+  });
+}
+
+function selectSuggestion(name){
+  document.getElementById("foodInput").value=name;
+  const suggestionsDiv=document.getElementById("suggestions");
+  suggestionsDiv.innerHTML=""; suggestionsDiv.classList.remove("show");
+}
+
+// Animate số
+function animateValue(id, start, end, duration) {
+  let obj=document.getElementById(id); 
+  let range=end-start; 
+  let current=start;
+  let increment=end>start?1:-1; 
+  let step= Math.abs(Math.floor(duration/range)); 
+  let timer=setInterval(function(){
+    current+=increment; 
+    obj.innerText=current; 
+    if(current==end) clearInterval(timer);
+  },step);
+}
+
+// Phân tích món ăn
+function analyzeFood(){
+  const query=document.getElementById("foodInput").value; 
+  if(!query) return alert("Vui lòng nhập món ăn");
+  fetch("https://trackapi.nutritionix.com/v2/natural/nutrients",{
+    method:"POST",
+    headers:{"Content-Type":"application/json","x-app-id":appId,"x-app-key":appKey},
+    body: JSON.stringify({query})
+  }).then(res=>res.json()).then(data=>{
+    const food=data.foods[0];
+    document.getElementById("foodName").innerText=getFoodIcon(food.food_name)+" "+food.food_name;
+    animateValue("calories",0,Math.round(food.nf_calories),600);
+    animateValue("carbs",0,Math.round(food.nf_total_carbohydrate),600);
+    animateValue("protein",0,Math.round(food.nf_protein),600);
+    document.getElementById("foodImage").src=food.photo.highres||food.photo.thumb;
+    const resultCard=document.getElementById("result"); 
+    resultCard.style.display="block"; 
+    resultCard.style.opacity="0"; 
+    resultCard.style.transform="translateY(20px)";
+    setTimeout(()=>{ resultCard.style.opacity="1"; resultCard.style.transform="translateY(0)"; },10);
+    saveHistory(food.food_name);
+  });
+}
+
+// Lịch sử hôm nay
+function saveHistory(food){
+  const today=new Date().toISOString().split('T')[0]; 
+  const key="history_"+today;
+  let history=JSON.parse(localStorage.getItem(key)||"[]"); 
+  history.push(food);
+  localStorage.setItem(key,JSON.stringify(history)); 
+  renderHistory();
+}
+
+function renderHistory(){
+  const today=new Date().toISOString().split('T')[0]; 
+  const key="history_"+today;
+  const history=JSON.parse(localStorage.getItem(key)||"[]");
+  document.getElementById("historyList").innerHTML=history.map(h=>`<li>${h}</li>`).join("");
+}
+
+// Gợi ý chế độ ăn
+function suggestDiet(){
+  const age=+document.getElementById("age").value; 
+  const gender=document.getElementById("gender").value;
+  const height=+document.getElementById("height").value; 
+  const weight=+document.getElementById("weight").value;
+  if(!age||!height||!weight) return alert("Điền đầy đủ thông tin");
+  const bmi=weight/((height/100)**2); 
+  let message=`Chỉ số BMI của bạn là ${bmi.toFixed(1)}.\n`;
+  if(bmi<18.5) message+="Bạn đang thiếu cân. Nên tăng lượng calo và ăn nhiều đạm hơn.";
+  else if(bmi<24.9) message+="Bạn có cân nặng hợp lý. Tiếp tục duy trì chế độ ăn cân bằng.";
+  else message+="Bạn đang thừa cân. Hạn chế calo và tăng rau xanh, đạm nạc.";
+  document.getElementById("dietSuggestion").innerText=message;
+}
+
+// Render lịch sử khi load
+renderHistory();
+</script>
+
+</body>
+</html>

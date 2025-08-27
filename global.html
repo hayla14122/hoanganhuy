@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Disease Trends</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+/* ==== Global Styles ==== */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:linear-gradient(135deg,#b3e5fc,#e1f5fe,#b3e5fc,#e1f5fe);
+  background-size:400% 400%;
+  animation:gradientBG 20s ease infinite;
+  color:#004d40;
+  overflow-x:hidden;
+}
+@keyframes gradientBG{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* ==== Header ==== */
+header{
+  position:relative;
+  padding:120px 20px 100px 20px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#0097a7,#00bcd4);
+  clip-path: polygon(0 0,100% 0,100% 85%,0 100%);
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2) inset;
+}
+
+header h1{
+  font-size:3em;
+  color:#e0f7fa;
+  text-shadow:0 0 15px #ffffff,0 0 25px #00e5ff,0 0 35px #00bfa5;
+}
+
+header .typing-text{
+  font-size:1.5em;
+  color:#e0f7fa;
+  min-height:2em;
+  margin-top:15px;
+  text-shadow:0 0 8px #ffffff,0 0 15px #00e5ff;
+}
+
+/* ==== Header Logo ==== */
+.header-logo{
+  position:absolute;
+  top:20px;
+  left:20px;
+  width:70px;
+  height:70px;
+  object-fit:contain;
+  border-radius:10px;
+  
+  animation:logoFloat 3s ease-in-out infinite alternate;
+  transition:all 0.4s ease;
+}
+.header-logo:hover{
+  transform:scale(1.2) rotate(-5deg);
+  box-shadow:0 0 30px rgba(0,255,255,1);
+}
+@keyframes logoFloat{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+  100%{transform:translateY(0);}
+}
+
+/* ==== Floating Bubbles ==== */
+.bubble{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,255,255,0.25);
+  pointer-events:none;
+  animation:bubbleMove linear infinite;
+}
+@keyframes bubbleMove{
+  0%{transform:translateY(0) scale(0.5);opacity:0.5;}
+  50%{opacity:1;}
+  100%{transform:translateY(-120vh) scale(1);opacity:0;}
+}
+
+/* ==== Trend Cards ==== */
+.trends-section{padding:50px 20px;}
+.container{display:flex; flex-wrap:wrap; gap:25px; max-width:1200px; margin:0 auto;}
+.trend-card{
+  background:white; flex:1 1 250px; padding:25px; border-radius:15px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.1);
+  transition:all 0.5s; cursor:pointer; opacity:0; transform:translateY(20px);
+  position:relative; overflow:hidden; perspective:1000px;
+}
+.trend-card.visible{opacity:1; transform:translateY(0);}
+.trend-card:hover{
+  transform:translateY(-10px) scale(1.06);
+  box-shadow:0 12px 25px rgba(0,172,193,0.3),0 0 25px rgba(0,191,165,0.3) inset;
+}
+.trend-card h3{font-size:1.8em; margin-bottom:10px; color:#00796b;}
+.trend-card p{margin-bottom:8px; line-height:1.5;}
+.particle{
+  position:absolute;width:6px;height:6px;background:#00e676;border-radius:50%;
+  opacity:0.7;pointer-events:none;animation:particleAnim 0.6s linear forwards;
+}
+@keyframes particleAnim{
+  0%{transform:translate(0,0) scale(1);opacity:1;}
+  100%{transform:translate(calc(var(--dx)*20px), calc(var(--dy)*20px)) scale(0);opacity:0;}
+}
+
+/* ==== Chart ==== */
+.chart-container{
+  max-width:1000px; margin:50px auto; background:white; padding:25px; border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* ==== Fade-Up Animation ==== */
+.fade-up{opacity:0; transform:translateY(20px); transition:all 0.6s ease;}
+.fade-up.visible{opacity:1; transform:translateY(0);}
+
+/* ==== Particle hover ripple ==== */
+.sparkle{
+  position:absolute;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:rgba(0,255,255,0.7);
+  pointer-events:none;
+  animation:sparkleAnim 0.6s ease-out forwards;
+}
+@keyframes sparkleAnim{
+  0%{transform:scale(1) translate(0,0); opacity:1;}
+  100%{transform:scale(2) translate(var(--dx), var(--dy)); opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo2.png" alt="Logo" class="header-logo">
+  <h1>Global Disease Trends</h1>
+  <div class="typing-text"></div>
+</header>
+
+<section class="trends-section fade-up">
+  <div class="container">
+    <div class="trend-card" data-cases="400">
+      <h3>Influenza</h3>
+      <p>Annual Cases: 400M</p>
+      <p>Seasonal Peaks: Winter</p>
+    </div>
+    <div class="trend-card" data-cases="250">
+      <h3>Malaria</h3>
+      <p>Annual Cases: 250M</p>
+      <p>Regions: Africa, Asia</p>
+    </div>
+    <div class="trend-card" data-cases="540">
+      <h3>Diabetes</h3>
+      <p>Global Prevalence: 10%</p>
+      <p>Risk Factors: Obesity, Age, Genetics</p>
+    </div>
+    <div class="trend-card" data-cases="3">
+      <h3>Cholera</h3>
+      <p>Annual Cases: 3M</p>
+      <p>Regions: Africa, South Asia</p>
+    </div>
+    <div class="trend-card" data-cases="9">
+      <h3>Measles</h3>
+      <p>Global Cases: 9M</p>
+      <p>Vaccination Coverage: 85%</p>
+    </div>
+    <div class="trend-card" data-cases="1">
+      <h3>Zika Virus</h3>
+      <p>Regions: South America, Caribbean</p>
+      <p>Transmission: Mosquito-borne</p>
+    </div>
+  </div>
+</section>
+
+<div class="chart-container fade-up">
+  <canvas id="diseaseChart"></canvas>
+</div>
+
+<script>
+// ==== Typing effect ====
+const texts=["Monitoring Global Health","Tracking Disease Trends","Data for a Healthier Future"];
+let i=0,j=0,isDeleting=false;
+const typingEl=document.querySelector('.typing-text');
+function type(){
+  if(!typingEl) return;
+  let current=texts[i];
+  if(!isDeleting){
+    typingEl.textContent=current.substring(0,j++);
+    if(j>current.length){isDeleting=true; setTimeout(type,1000); return;}
+  }else{
+    typingEl.textContent=current.substring(0,j--);
+    if(j<0){isDeleting=false;i=(i+1)%texts.length;}
+  }
+  setTimeout(type,isDeleting?60:100);
+}
+type();
+
+// ==== Floating bubbles ====
+for(let k=0;k<30;k++){
+  const b=document.createElement('div');
+  b.className='bubble';
+  b.style.width=b.style.height=Math.random()*20+10+'px';
+  b.style.left=Math.random()*100+'%';
+  b.style.bottom='-50px';
+  b.style.animationDuration=5+Math.random()*10+'s';
+  document.body.appendChild(b);
+}
+
+// ==== Scroll Reveal ====
+const fadeElements=document.querySelectorAll('.fade-up,.trend-card');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting) entry.target.classList.add('visible');
+  });
+},{threshold:0.2});
+fadeElements.forEach(el=>observer.observe(el));
+
+// ==== Particle hover ====
+document.querySelectorAll('.trend-card').forEach(card=>{
+  card.addEventListener('mouseenter', ()=>{
+    for(let k=0;k<20;k++){
+      const p=document.createElement('span');
+      p.className='particle';
+      const dx=(Math.random()-0.5)*2, dy=(Math.random()-0.5)*2;
+      p.style.setProperty('--dx',dx);
+      p.style.setProperty('--dy',dy);
+      p.style.left=Math.random()*100+'%';
+      p.style.top=Math.random()*100+'%';
+      card.appendChild(p);
+      setTimeout(()=>p.remove(),600);
+    }
+  });
+  card.addEventListener('click', ()=>alert(`Clicked on ${card.querySelector('h3').textContent}`));
+});
+
+// ==== Chart.js ====
+const labels=Array.from(document.querySelectorAll('.trend-card')).map(c=>c.querySelector('h3').textContent);
+const data=Array.from(document.querySelectorAll('.trend-card')).map(c=>parseFloat(c.getAttribute('data-cases')));
+const ctx=document.getElementById('diseaseChart').getContext('2d');
+const diseaseChart=new Chart(ctx,{
+  type:'bar',
+  data:{labels:labels,datasets:[{label:'Annual Cases (Millions)',data:data,backgroundColor:['#00bcd4','#00e5ff','#00bfa5','#1de9b6','#26c6da','#00bcd4'],borderRadius:10}]},
+  options:{
+    responsive:true,
+    plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
+    scales:{y:{beginAtZero:true}}
+  }
+});
+</script>
+
+</body>
+</html>

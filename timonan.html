@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flavor Quest</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #ffffff);
+    color: #006064;
+  }
+
+  header {
+    text-align: center;
+    padding: 40px 20px 20px 20px;
+    background: linear-gradient(90deg, #00acc1, #26c6da);
+    color: white;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  header img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 15px;
+  }
+
+  header h1 {
+    font-size: 2.4em;
+    margin-bottom: 10px;
+  }
+
+  header p {
+    font-size: 1.1em;
+    opacity: 0.9;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 25px 0;
+  }
+
+  .controls input, .controls select {
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    flex: 1 1 200px;
+    min-width: 150px;
+    transition: 0.3s;
+  }
+
+  .controls input:focus, .controls select:focus {
+    border-color: #00acc1;
+    box-shadow: 0 0 8px rgba(0,172,193,0.5);
+  }
+
+  .controls button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(90deg, #00acc1, #26c6da);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .controls button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
+
+  .meal-list {
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .meal {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    transition: 0.3s;
+  }
+
+  .meal:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+    border-left: 5px solid #00acc1;
+  }
+
+  .meal img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 15px;
+  }
+
+  .meal h3 {
+    margin-bottom: 10px;
+    font-size: 1.9em;
+    background: linear-gradient(90deg, #26c6da, #00acc1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .meal ul {
+    margin: 5px 0 10px 20px;
+    padding: 0;
+  }
+
+  .meal p {
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  .no-result {
+    text-align: center;
+    font-style: italic;
+    color: #555;
+    margin-top: 20px;
+  }
+  .controls input:focus, .controls select:focus {
+  border-color: #00acc1;
+  box-shadow: 0 0 10px #00acc1;
+  transform: scale(1.02);
+}
+#random-btn {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.meal a {
+  color: #006064;
+  position: relative;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.meal a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #00acc1;
+  left: 0;
+  bottom: -2px;
+  transition: width 0.3s;
+}
+
+.meal a:hover {
+  color: #00acc1;
+}
+
+.meal a:hover::after {
+  width: 100%;
+}
+header img:hover {
+  transform: scale(1.15) rotate(-5deg);
+  transition: transform 0.4s ease;
+}
+.controls button {
+  position: relative;
+  overflow: hidden;
+}
+
+.controls button::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 50%;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.controls button:active::after {
+  width: 200px;
+  height: 200px;
+  transition: 0s;
+}
+body {
+  background: linear-gradient(135deg, #e0f7fa, #ffffff, #b2ebf2, #e0f7fa);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+.meal-list.loading .meal {
+  background: linear-gradient(90deg, #f0f4f8 25%, #e0f7fa 50%, #f0f4f8 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite linear;
+  color: transparent;
+}
+
+@keyframes loading {
+  0%{background-position:200% 0;}
+  100%{background-position:-200% 0;}
+}
+#random-btn {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+#search-input:focus {
+  border: 2px solid #26c6da;
+  box-shadow: 0 0 15px #26c6da;
+}
+.controls button:active::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+header h1 {
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.meal a {
+  position: relative;
+  text-decoration: none;
+}
+.meal a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background: #00acc1;
+  transition: width 0.3s;
+}
+.meal a:hover::after {
+  width: 100%;
+}
+.meal:hover {
+  box-shadow: 0 12px 25px rgba(0,172,193,0.3), 0 0 20px rgba(38,198,218,0.3) inset;
+  border-left: 5px solid #00acc1;
+  transition: all 0.3s ease;
+}
+#random-btn {
+  animation: float 3s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+#random-btn:active::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: ripple 0.6s ease-out;
+}
+@keyframes ripple {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+body {
+  background: linear-gradient(135deg, #e0f7fa, #ffffff, #b2ebf2, #e0f7fa);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.meal:hover {
+  box-shadow: 0 0 20px rgba(0,172,193,0.4), 0 0 40px rgba(38,198,218,0.2) inset;
+  border-left: 5px solid #26c6da;
+  transition: all 0.3s ease;
+}
+.meal a:hover {
+  color: #00acc1;
+  text-shadow: 0 0 10px rgba(0,172,193,0.5);
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+.meal.loading {
+  background: linear-gradient(90deg, #f0f4f8 25%, #e0f7fa 50%, #f0f4f8 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  color: transparent;
+}
+@keyframes shimmer {
+  0%{background-position:200% 0;}
+  100%{background-position:-200% 0;}
+}
+#random-btn {
+  animation: neon 2s infinite alternate, float 3s ease-in-out infinite;
+}
+@keyframes neon {
+  0% { box-shadow: 0 0 5px #00acc1; }
+  100% { box-shadow: 0 0 20px #26c6da; }
+}
+#random-btn:active::after {
+  animation: ripple 0.6s ease-out;
+}
+#home-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #00acc1, #26c6da);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 5px #00acc1;
+  z-index: 1000;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: neonHome 2s infinite alternate, floatHome 3s ease-in-out infinite;
+}
+
+#home-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 15px #26c6da, 0 0 30px #00acc1;
+}
+
+#home-btn::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 50%;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+#home-btn:active::after {
+  width: 200px;
+  height: 200px;
+  transition: 0s;
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes neonHome {
+  0% { box-shadow: 0 0 5px #00acc1; }
+  100% { box-shadow: 0 0 20px #26c6da; }
+}
+
+@keyframes floatHome {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes ripple {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+
+
+
+
+
+
+
+
+
+</style>
+</head>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flavor Quest</title>
+  <style>
+    /* CSS đã được tối ưu và đẹp mắt */
+  </style>
+</head>
+
+<body>
+
+<header>
+  <img src="logo2.png" alt="Logo">
+  <h1>Flavor Quest</h1>
+  <p>Tìm món ăn, xem nguyên liệu và cách nấu</p>
+</header>
+
+<div class="controls">
+  <input type="text" id="search-input" placeholder="Nhập tên món ăn...">
+  <select id="category-select">
+    <option value="">Chọn loại món ăn</option>
+    <option value="Beef">Beef</option>
+    <option value="Chicken">Chicken</option>
+    <option value="Dessert">Dessert</option>
+    <option value="Lamb">Lamb</option>
+    <option value="Pasta">Pasta</option>
+    <option value="Seafood">Seafood</option>
+    <option value="Vegetarian">Vegetarian</option>
+    <option value="Breakfast">Breakfast</option>
+  </select>
+  <select id="area-select">
+    <option value="">Chọn đất nước</option>
+    <option value="Italian">Ý</option>
+    <option value="Japanese">Nhật</option>
+    <option value="Vietnamese">Việt</option>
+    <option value="Korean">Hàn Quốc</option>
+    <option value="Mexican">Mexico</option>
+    <option value="Chinese">Trung Quốc</option>
+    <option value="Thai">Thái Lan</option>
+    <option value="Indian">Ấn Độ</option>
+    <option value="Caribbean">Caribbean</option>
+  </select>
+  <button id="random-btn">Món ngẫu nhiên</button>
+</div>
+
+<div id="meal-list" class="meal-list"></div>
+
+<script>
+  
+  document.querySelectorAll('.meal').forEach(card => {
+  const img = card.querySelector('img');
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cx = rect.width/2;
+    const cy = rect.height/2;
+    const dx = (x - cx)/cx;
+    const dy = (y - cy)/cy;
+    card.style.transform = `rotateY(${dx*8}deg) rotateX(${-dy*8}deg) scale(1.03)`;
+    img.style.transform = `translate(${dx*5}px, ${dy*5}px) scale(1.05)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+    img.style.transform = 'translate(0,0) scale(1)';
+  });
+});
+
+  const searchInput = document.getElementById('search-input');
+  const categorySelect = document.getElementById('category-select');
+  const areaSelect = document.getElementById('area-select');
+  const randomBtn = document.getElementById('random-btn');
+  const mealListDiv = document.getElementById('meal-list');
+  
+  // Lấy nguyên liệu
+  function getIngredients(meal) {
+    const ingredients = [];
+    for (let i = 1; i <= 20; i++) {
+      const ingredient = meal[`strIngredient${i}`];
+      const measure = meal[`strMeasure${i}`];
+      if (ingredient && ingredient.trim()) {
+        ingredients.push(`${ingredient} - ${measure}`);
+      }
+    }
+    return ingredients;
+  }
+  
+  // Tìm video YouTube (frontend-only, mở search page)
+  function getYouTubeVideo(mealName) {
+    const query = encodeURIComponent(`${mealName} recipe`);
+    return `https://www.youtube.com/results?search_query=${query}`;
+  }
+  
+  // Hiển thị món ăn
+  function displayMeals(meals) {
+    mealListDiv.innerHTML = '';
+    if (!meals) {
+      mealListDiv.innerHTML = '<p class="no-result">Không tìm thấy món ăn.</p>';
+      return;
+    }
+    for (const meal of meals) {
+      const mealDiv = document.createElement('div');
+      mealDiv.className = 'meal';
+      const ingredients = getIngredients(meal);
+      const videoUrl = getYouTubeVideo(meal.strMeal);
+      mealDiv.innerHTML = `
+        <h3>${meal.strMeal}</h3>
+        <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+        <p><strong>Nguyên liệu:</strong></p>
+        <ul>${ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+        <p><strong>Cách nấu:</strong> ${meal.strInstructions}</p>
+        <p><a href="${videoUrl}" target="_blank">Xem video hướng dẫn</a></p>
+      `;
+      mealListDiv.appendChild(mealDiv);
+    }
+  }
+  document.querySelectorAll('.meal').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cx = rect.width/2;
+    const cy = rect.height/2;
+    const dx = (x - cx)/cx;
+    const dy = (y - cy)/cy;
+    card.style.transform = `rotateY(${dx*10}deg) rotateX(${-dy*10}deg)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+  });
+});
+
+  
+  // Tìm món ăn theo tên
+  function searchMeal(name) {
+    if (!name) return;
+    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(name)}`)
+      .then(res => res.json())
+      .then(data => displayMeals(data.meals))
+      .catch(err => console.error(err));
+  }
+  
+  // Lọc món theo category và area
+  function filterMeals(category, area) {
+    let apiUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?';
+    if (category) apiUrl += `c=${encodeURIComponent(category)}&`;
+    if (area) apiUrl += `a=${encodeURIComponent(area)}&`;
+    apiUrl = apiUrl.slice(0, -1); // loại bỏ & thừa
+    fetch(apiUrl)
+      .then(res => res.json())
+      .then(data => {
+        if (!data.meals) { displayMeals(null); return; }
+        // fetch chi tiết từng meal
+        Promise.all(data.meals.slice(0, 10).map(m =>
+          fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${m.idMeal}`)
+            .then(r => r.json())
+            .then(d => d.meals[0])
+        )).then(fullMeals => displayMeals(fullMeals));
+      })
+      .catch(err => console.error(err));
+  }
+  
+  // Lấy món ngẫu nhiên
+  function randomMeal() {
+    fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+      .then(res => res.json())
+      .then(data => displayMeals(data.meals))
+      .catch(err => console.error(err));
+  }
+  
+  // Event listeners
+  searchInput.addEventListener('input', () => {
+    const val = searchInput.value.trim();
+    if (val) searchMeal(val);
+  });
+  
+  categorySelect.addEventListener('change', () => {
+    filterMeals(categorySelect.value, areaSelect.value);
+  });
+  
+  areaSelect.addEventListener('change', () => {
+    filterMeals(categorySelect.value, areaSelect.value);
+  });
+  
+  randomBtn.addEventListener('click', randomMeal);
+  
+  // Hiển thị món ngẫu nhiên khi load trang
+  randomMeal();
+  const allMeals = document.querySelectorAll('.meal');
+allMeals.forEach((meal, index) => {
+  setTimeout(() => {
+    meal.classList.add('visible');
+  }, index * 150); // delay từng card 150ms
+});
+
+  </script>
+  
+ 
+
+</body>
+</html>

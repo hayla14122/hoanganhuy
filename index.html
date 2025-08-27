@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login & Register</title>
+  <link rel="stylesheet" href="login.css"/>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+  <div class="top-logo">
+    <img src="logo2.png" alt="Logo" />
+  </div>
+  
+  
+
+  
+  <div class="container" id="container">
+   
+    <div class="form-container sign-up">
+      <form>
+        <h1>Create Account</h1>
+        <input type="text" placeholder="Username" id="signup-username" required />
+        <input type="email" placeholder="Email" id="signup-email" required />
+        <input type="password" placeholder="Password" id="signup-password" required />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+
+    <div class="form-container sign-in">
+      <form>
+        <h1>Sign In</h1>
+        <input type="text" placeholder="Username" id="login-username" required />
+        <input type="password" placeholder="Password" id="login-password" required />
+        <a href="#">Forgot your password?</a>
+        <button type="submit" id="login-btn"><span class="btn-text">Sign In</span><div class="spinner" hidden></div></button>
+         
+      </form>
+    </div>
+
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1 class="typing">Welcome back!</h1>
+          <p>To stay connected with us, please login with your personal info</p>
+          <button class="ghost" id="signIn">Sign In</button>
+         
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1 id="typing-text">Hello, Friend!</h1>
+          <p>Enter your personal details and start your journey with us</p>
+          <button class="ghost" id="signUp">Sign Up</button> 
+          <button type="button" class="google-btn">
+            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" />
+            Sign in with Google
+          </button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDS2JF1sji2lfSZNzWE0zlQ88VIkK71rM0",
+    authDomain: "spck-ea3e5.firebaseapp.com",
+    projectId: "spck-ea3e5",
+    storageBucket: "spck-ea3e5.firebasestorage.app",
+    messagingSenderId: "1070426098190",
+    appId: "1:1070426098190:web:293951bda73ed346258a5f"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+  confetti();
+  
+</script>
+
+</html>
+<script type="module" src="auth.js"></script>
+
+
+

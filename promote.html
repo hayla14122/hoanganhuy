@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Promote Well-being</title>
+  <link rel="stylesheet" href="./promote.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+</head>
+
+<body>
+  <div id="app" data-scroll-container>
+    <section class="hero" data-scroll-section>
+      <video autoplay muted loop class="bg-video">
+        <source src="https://www.w3schools.com/howto/rain.mp4" type="video/webm">
+      </video>
+      <div class="hero-text" data-scroll data-scroll-speed="2">
+        <h1 class="fade-in-up">Promote Well-being</h1>
+        <p class="fade-in-up-delay">Together we rise, heal, and thrive.</p>
+      </div>
+    </section>
+
+    <section class="content-section" data-scroll-section>
+      <div class="content-container">
+        <div class="well-being-section fade-in-left">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Nature and Wellness" class="rounded-image">
+          <div class="text-content">
+            <h2>Sức khỏe thể chất: Nền tảng của cuộc sống</h2>
+            <p>
+              Sức khỏe thể chất là yếu tố cốt lõi để duy trì một cuộc sống chất lượng. Nó bao gồm việc cung cấp cho cơ thể những dưỡng chất cần thiết thông qua một chế độ ăn uống cân bằng, giàu vitamin và khoáng chất. Hạn chế thực phẩm chế biến sẵn và đồ uống có đường là bước quan trọng đầu tiên.
+            </p>
+            <p>
+              Bên cạnh đó, việc vận động thường xuyên không chỉ giúp duy trì cân nặng lý tưởng mà còn tăng cường sức mạnh cơ bắp, cải thiện hệ tim mạch và giải tỏa căng thẳng. Yoga, đi bộ, chạy bộ hay các môn thể thao đồng đội đều là những lựa chọn tuyệt vời.
+            </p>
+          </div>
+        </div>
+
+        <div class="well-being-section fade-in-right">
+          <div class="text-content">
+            <h2>Sức khỏe tinh thần: Nuôi dưỡng tâm hồn</h2>
+            <p>
+              Sức khỏe tinh thần cũng quan trọng không kém sức khỏe thể chất. Trong cuộc sống hiện đại, việc duy trì sự bình yên trong tâm hồn là một thách thức. Thực hành chánh niệm (mindfulness), thiền định hay đơn giản là dành thời gian cho sở thích cá nhân có thể giúp bạn tìm lại sự cân bằng.
+            </p>
+            <p>
+              Đừng ngần ngại kết nối với những người xung quanh. Dành thời gian cho gia đình, bạn bè và tham gia các hoạt động cộng đồng sẽ giúp bạn cảm thấy được yêu thương và thuộc về, từ đó tạo nên một mạng lưới hỗ trợ vững chắc.
+            </p>
+          </div>
+          <img src="https://manhattanmentalhealthcounseling.com/wp-content/uploads/2019/06/Top-5-Scientific-Findings-on-MeditationMindfulness.jpeg" alt="Mental Wellness" class="rounded-image">
+        </div>
+
+        <div class="well-being-section fade-in-up">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo25G49N2Pv3Ae9Vg_pZDxydVcy3nxff7muw&s" alt="Community" class="rounded-image">
+          <div class="text-content">
+            <h2>Cộng đồng và Môi trường: Sức mạnh tập thể</h2>
+            <p>
+              Một xã hội khỏe mạnh bắt đầu từ những cộng đồng vững mạnh. Khi chúng ta cùng nhau xây dựng một môi trường sống sạch sẽ, an toàn và có sự hỗ trợ, tất cả mọi người đều có thể phát triển.
+            </p>
+            <p>
+              Việc tiếp cận các dịch vụ y tế chất lượng cao, giáo dục về sức khỏe và các chính sách công cộng hỗ trợ là chìa khóa để tạo ra một tương lai tươi sáng, nơi mỗi cá nhân đều có cơ hội sống một cuộc đời trọn vẹn và hạnh phúc.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer data-scroll-section>
+      <p>© 2025 Promote Well-being. Built with love and care.</p>
+    </footer>
+  </div>
+
+  <div id="chatbot" class="chatbot-container">
+    <div id="chatPopup" style="display:none;">
+      <div id="chat-header">
+        AI Doctor Chatbot
+      </div>
+      <div id="chatBox"></div>
+      <div class="chat-input-container">
+        <input type="text" id="userInput" placeholder="Ask the AI Doctor..." />
+        <button id="sendBtn">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="chat-toggle-btn">💬 Chat</button>
+
+  <script src="./chatbot.js"></script>
+  <script src="./promote.js"></script>
+</body>
+</html>

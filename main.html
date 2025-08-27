@@ -1,0 +1,171 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>HealthSphere</title>
+    <link rel="stylesheet" href="main.css"/>
+  <link rel="icon" type="image/png" href="logo2.png">
+  </head>
+  <body>
+    <header>
+      <div class="container" style="display: flex; align-items: center; gap: 15px;">
+        <img src="logo2.png" alt="Health Org Logo" style="height: 50px; width: auto;">
+        <h1 class="logo glitch" data-text="HealthSphere">HealthSphere</h1>
+    
+        <nav style="margin-left: auto;">
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#missions">Missions</a></li>
+            <li><a href="#reports">Reports</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    
+
+    <section id="hero" class="hero">
+      <div class="hero-content">
+        <h2 class="gradient-text typing-text"></h2>
+
+        <p>Leading efforts to build a healthier world for everyone.</p>
+        <a href="gioithieu.html" class="btn">Learn More</a>
+      </div>
+    </section>
+
+    
+
+    <section id="about" class="section fade-in">
+  <div class="container">
+    <h3>Latest News</h3>
+    <div class="news-grid">
+      <div class="news-card fade-up">
+        <a href="./new1.html" style="text-decoration: none; color: inherit;">
+          <img src="./Screen Shot 2025-08-14 at 11.32.14.png" alt="">
+          <div class="news-content">
+            <p class="date">8 August 2025 | News release</p>
+            <h4>Kenya achieves elimination of human African trypanosomiasis as a public health problem</h4>
+          </div>
+        </a>
+      </div>
+
+      <div class="news-card fade-up">
+        <a href="./news2.html" style="text-decoration: none; color: inherit;">
+          <img src="./Screen Shot 2025-08-14 at 11.33.57.png" alt="">
+          <div class="news-content">
+            <p class="date">7 August 2025 | News release</p>
+            <h4>WHO designates new WHO-Listed Authorities, strengthening global access to quality-assured medical products</h4>
+          </div>
+        </a>
+      </div>
+
+      <div class="news-card fade-up">
+        <a href="./news3.html" style="text-decoration: none; color: inherit;">
+          <img src="./Screen Shot 2025-08-14 at 11.37.52.png" alt="">
+          <div class="news-content">
+            <p class="date">4 August 2025 | Joint News Release</p>
+            <h4>WHO urges action on hepatitis, announcing hepatitis D as carcinogenic</h4>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <script>
+  function loadNews(url) {
+    fetch(url)
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('news-detail').innerHTML = data;
+        document.getElementById('news-detail').style.display = 'block';
+        document.querySelector('.news-grid').style.display = 'none';
+      });
+  }
+
+  function backToList() {
+    document.getElementById('news-detail').style.display = 'none';
+    document.querySelector('.news-grid').style.display = 'grid';
+  }
+  </script>
+
+    <section id="missions" class="section fade-in">
+      <div class="container">
+        <h3>Our Services</h3>
+        <ul class="missions-list">
+          <ul>
+            <li><a href="vaccine_chart_with_effects.html">COVID-19 Statistics</a></li>
+          </ul>
+          
+          
+          <ul>
+            <li><a href="promote.html">Promote Well Being</a></li>
+          </ul>
+          <ul>
+            <li><a href="prediction.html">Meal Portion Prediction</a></li>
+          </ul>
+      </div>
+    </section>
+
+    <section id="reports" class="section fade-in">
+      <div class="container">
+        <h3>Extra Functions</h3>
+        <div class="report-card" data-link="timonan.html">Foodie Explorer</div>
+        <div class="report-card" data-link="shopping.html">Drug Store</div>
+      </div>
+    </section>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<footer class="site-footer">
+    <div class="container footer-content">
+        <div class="footer-section about">
+       
+            <h2 class="org-name">Health Organization</h2>
+            <p>
+                Chăm sóc sức khỏe cộng đồng là sứ mệnh của chúng tôi. 
+                Chúng tôi cam kết mang đến những thông tin chính xác và dịch vụ tốt nhất.
+            </p>
+            <div class="contact-info">
+                <span><i class="fas fa-phone"></i> +84 123 456 789</span>
+                <span><i class="fas fa-envelope"></i> info@health.org</span>
+                <span><i class="fas fa-map-marker-alt"></i> 123 Phố Sức Khỏe, Hà Nội, Việt Nam</span>
+            </div>
+        </div>
+
+        <div class="footer-section links">
+            <h2>Liên kết nhanh</h2>
+            <ul>
+                <li><a href="#about-us">Về chúng tôi</a></li>
+                <li><a href="#services">Dịch vụ</a></li>
+                <li><a href="#blog">Bài viết</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+                <li><a href="#privacy">Chính sách bảo mật</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section social">
+            <h2>Kết nối với chúng tôi</h2>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p class="copyright">&copy; 2025 Health Organization.</p>
+            <p class="all-rights">All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<div id="scrollProgress"></div>
+<ul class="bubbles">
+    <li></li><li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li><li></li>
+</ul>
+    
+    
+     <script src="main.js"></script>
+  </body>
+  </html>

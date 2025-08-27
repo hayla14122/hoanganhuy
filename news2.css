@@ -1,0 +1,579 @@
+/* Thiết lập cơ bản */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --bg-color: #f8f9fa;
+    --text-color: #343a40;
+    --link-color: #0056b3;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Header */
+.main-header {
+    background: #ffffff;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px; /* Điều chỉnh kích thước logo */
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.main-nav ul li {
+    margin-left: 20px;
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* Main Content - Nội dung bài viết */
+.main-content {
+    padding: 2rem 0;
+}
+
+.article-detail {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.article-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+    line-height: 1.2;
+}
+
+.article-meta {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+}
+
+.article-body {
+    font-size: 1.1rem;
+}
+
+.article-image {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.article-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.article-image figcaption {
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    margin-top: 0.5rem;
+}
+
+.article-body p {
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+.article-body h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.article-body ul {
+    padding-left: 20px;
+    list-style-type: square;
+}
+
+.article-body ul li {
+    margin-bottom: 0.5rem;
+}
+
+.article-body a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.article-body a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.main-footer {
+    background: var(--text-color);
+    color: #fff;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.main-footer p {
+    margin: 0;
+}
+
+/* Hiệu ứng JavaScript */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Thiết lập font và màu sắc cơ bản */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Стиль cho vùng chứa logo */
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Стиль cho logo */
+.logo {
+    height: 50px; /* Điều chỉnh kích thước logo theo ý muốn */
+}
+
+/* Vùng chứa chính của trang */
+.page-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+}
+
+/* Tiêu đề bài viết */
+.page-header {
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInHeader 1s ease-out forwards 0.5s;
+}
+
+@keyframes fadeInHeader {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.article-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a237e;
+    margin-bottom: 10px;
+}
+
+.article-meta {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.news-release {
+    font-weight: 500;
+    color: #4a148c;
+}
+
+/* Nội dung bài viết */
+.article-content h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #1a237e;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 5px;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.article-content h2:hover {
+    transform: scale(1.05);
+    color: #0d47a1;
+}
+
+.article-content p,
+.article-content ul {
+    margin-bottom: 20px;
+    text-align: justify;
+    opacity: 0;
+    animation: fadeInContent 1s ease-out forwards 1.5s;
+}
+
+@keyframes fadeInContent {
+    to {
+        opacity: 1;
+    }
+}
+
+.article-content ul {
+    margin-left: 20px;
+}
+
+.article-content li {
+    margin-bottom: 10px;
+}
+
+/* Hình ảnh và chú thích */
+.article-figure {
+    margin: 30px 0;
+    text-align: center;
+    opacity: 0;
+    transform: translateX(-50px);
+    animation: slideInLeft 1s ease-out forwards 1s;
+}
+
+@keyframes slideInLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.article-figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-figure figcaption {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* Chân trang */
+.page-footer {
+    border-top: 1px solid #e0e0e0;
+    margin-top: 40px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.page-footer a {
+    color: #1a237e;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+}
+
+.page-footer a:hover {
+    color: #0d47a1;
+    text-decoration: underline wavy;
+}
+
+/* Responsive cho màn hình nhỏ hơn */
+@media (max-width: 600px) {
+    .page-container {
+        margin: 20px 10px;
+        padding: 20px;
+    }
+
+    .article-title {
+        font-size: 1.8rem;
+    }
+
+    .article-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .logo {
+        height: 40px;
+    }
+}
+
+/* ---- BẮT ĐẦU CSS CHO FOOTER ---- */
+.site-footer {
+    background-color: #03426c;
+    color: #f0f0f0;
+    padding: 60px 0;
+    font-family: Arial, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.site-footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    padding-right: 20px;
+}
+
+.footer-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #e0f2f1;
+    border-bottom: 2px solid #5d98e9;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.footer-section p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.org-name {
+    font-size: 28px;
+    font-weight: bold;
+    color: #e0f2f1;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.contact-info span {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.contact-info i {
+    margin-right: 10px;
+    color: #5d98e9;
+}
+
+.footer-section.links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section.links a {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.footer-section.links a:hover {
+    color: #5d98e9;
+    transform: translateX(5px);
+}
+
+.social-links a {
+    display: inline-block;
+    color: #f0f0f0;
+    font-size: 24px;
+    margin-right: 15px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: scale(1.2) rotate(10deg);
+    color: #5d98e9;
+}
+
+.copyright, .all-rights {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 20px;
+    opacity: 0.7;
+}
+
+/* Hiệu ứng bong bóng (bubbles) */
+.bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    list-style: none;
+    opacity: 0.1;
+}
+
+.bubbles li {
+    position: absolute;
+    bottom: -150px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.15);
+    animation: move-bubbles 15s linear infinite;
+    border-radius: 50%;
+}
+
+.bubbles li:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+    width: 25px;
+    height: 25px;
+}
+
+.bubbles li:nth-child(2) {
+    left: 20%;
+    animation-delay: 2s;
+    animation-duration: 10s;
+}
+
+.bubbles li:nth-child(3) {
+    left: 35%;
+    animation-delay: 4s;
+    width: 30px;
+    height: 30px;
+}
+
+.bubbles li:nth-child(4) {
+    left: 50%;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+
+.bubbles li:nth-child(5) {
+    left: 65%;
+    animation-delay: 3s;
+    width: 20px;
+    height: 20px;
+}
+
+.bubbles li:nth-child(6) {
+    left: 75%;
+    animation-delay: 5s;
+}
+
+.bubbles li:nth-child(7) {
+    left: 85%;
+    animation-delay: 1s;
+    width: 35px;
+    height: 35px;
+}
+
+.bubbles li:nth-child(8) {
+    left: 90%;
+    animation-delay: 6s;
+    animation-duration: 12s;
+}
+
+.bubbles li:nth-child(9) {
+    left: 5%;
+    animation-delay: 7s;
+    width: 50px;
+    height: 50px;
+}
+
+.bubbles li:nth-child(10) {
+    left: 95%;
+    animation-delay: 8s;
+}
+
+@keyframes move-bubbles {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
+body {
+  background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+  
+}
+.back-button-container {
+  text-align: center;
+  margin-top: 30px;
+  z-index: 10;
+  position: relative;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* ---- KẾT THÚC CSS CHO FOOTER ---- */
